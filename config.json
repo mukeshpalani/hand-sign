@@ -1,0 +1,100 @@
+{
+  "paths": {
+    "project_root": "E:\\projects\\AI_Sign_Assistant",
+    "models_dir": "E:\\projects\\AI_Sign_Assistant\\models",
+    "datasets_dir": "E:\\projects\\AI_Sign_Assistant\\datasets",
+    "assets_dir": "E:\\projects\\AI_Sign_Assistant\\assets",
+    "avatar_assets_dir": "E:\\projects\\AI_Sign_Assistant\\avatar",
+    "sounds_dir": "E:\\projects\\AI_Sign_Assistant\\sounds",
+    "checkpoints_dir": "E:\\projects\\AI_Sign_Assistant\\checkpoints",
+    "logs_dir": "E:\\projects\\AI_Sign_Assistant\\logs"
+  },
+  "app": {
+    "camera_index": 0,
+    "target_fps": 30,
+    "window_title": "AI Sign Language Assistant",
+    "log_level": "INFO",
+    "mirror_camera": true,
+    "enable_voice_assistant": true,
+    "enable_avatar": true,
+    "enable_teacher_mode": false
+  },
+  "hand_detector": {
+    "max_num_hands": 2,
+    "min_detection_confidence": 0.6,
+    "min_presence_confidence": 0.5,
+    "min_tracking_confidence": 0.5,
+    "model_asset_path": null,
+    "model_complexity": 1
+  },
+  "overlap_resolver": {
+    "overlap_iou_threshold": 0.05,
+    "max_occlusion_frames": 15,
+    "smoothing_alpha": 0.7,
+    "max_occlusion_duration_ms": 1000.0
+  },
+  "continuous_recognizer": {
+    "window_size": 30,
+    "stride": 5,
+    "min_confidence": 0.75,
+    "repeat_cooldown_frames": 20,
+    "sentence_end_no_hand_frames": 45,
+    "max_estimated_frame_ratio": 0.5
+  },
+  "caption_generator": {
+    "max_history_size": 100,
+    "emit_live_captions": true
+  },
+  "teacher_module": {
+    "finger_extension_tolerance": 0.15,
+    "wrist_rotation_tolerance_degrees": 20.0,
+    "correct_score_threshold": 80.0,
+    "mastery_score_threshold": 85.0,
+    "mastery_lookback_attempts": 5,
+    "max_history_per_word": 200
+  },
+  "voice_assistant": {
+    "default_volume": 1.0,
+    "default_rate": 175,
+    "speak_only_final_captions": true,
+    "max_queue_size": 20
+  },
+  "avatar_controller": {
+    "playback_fps": 30,
+    "transition_duration_ms": 150.0,
+    "max_queue_size": 10
+  },
+  "dataset_manager": {
+    "root_dir": "E:\\projects\\AI_Sign_Assistant\\datasets",
+    "default_test_ratio": 0.15,
+    "default_val_ratio": 0.15,
+    "default_split_seed": 42
+  },
+  "model_training": {
+    "dataset_root": "E:\\projects\\AI_Sign_Assistant\\datasets",
+    "checkpoint_root": "E:\\projects\\AI_Sign_Assistant\\checkpoints",
+    "model_output_root": "E:\\projects\\AI_Sign_Assistant\\models",
+    "window_size": 30,
+    "lstm_units": 64,
+    "dense_units": 32,
+    "dropout_rate": 0.3,
+    "learning_rate": 0.001,
+    "batch_size": 16,
+    "max_epochs": 50,
+    "early_stopping_patience": 8
+  },
+  "chatbot": {
+    "host": "http://localhost:11434",
+    "model": "llama3.2",
+    "system_prompt": "You are a friendly, patient assistant chatting with someone who communicates via sign language. Their messages have been automatically converted from sign language to text, so wording may be simple, short, or grammatically loose -- interpret generously and don't comment on the phrasing. Keep replies concise and conversational.",
+    "max_history_turns": 10,
+    "timeout_seconds": 30.0
+  },
+  "web": {
+    "host": "127.0.0.1",
+    "port": 5000,
+    "jpeg_quality": 80,
+    "max_chat_messages": 200,
+    "debug": false
+  }
+}

@@ -1,0 +1,60 @@
+# AI Sign Language Assistant -- Python dependencies
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# Grouped by which module(s) need them. Modules marked "optional" degrade
+# gracefully (via this project's Null-Object pattern) if their dependency
+# isn't installed -- see each module's own docstring for details.
+
+# ---- Core (required for the live pipeline) ----
+opencv-python>=4.8.0        # main.py, hand_detection.py, overlap_resolution.py: camera I/O, GUI, drawing
+mediapipe>=0.10.0            # hand_detection.py: hand landmark detection (REQUIRED, no fallback)
+numpy>=1.24.0                 # used across nearly every module for landmark/feature-vector math
+
+# ---- Text-to-speech (voice_assistant.py) ----
+# pyttsx3 is optional: voice_assistant.py falls back to a no-op
+# NullTTSEngine and logs what would have been spoken if this isn't
+# installed or no audio backend is available.
+pyttsx3>=2.90
+
+# ---- Model training / export (model_training.py) ----
+# TensorFlow is a HARD requirement only for actually training or running
+# a trained model (ModelTrainer / TrainedSequenceClassifier). Every other
+# module runs fine without it; continuous_recognition.py falls back to
+# NullSequenceClassifier (no real recognition) until a model is trained.
+tensorflow>=2.13.0
+
+# tf2onnx is fully optional: model_training.py's export_onnx() logs a
+# warning and skips ONNX export if this isn't installed, without
+# affecting TFLite export or training itself.
+tf2onnx>=1.16.0
+
+# ---- Web front-end (web_server.py) ----
+# Only needed if you want the browser-based UI (camera + captions + chat)
+# instead of / in addition to main.py's local OpenCV window. Not required
+# for anything else in this project.
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+websockets>=12.0
+
+# ---- Web GUI front-end (web_app.py only -- NOT needed for main.py) ----
+# Flask serves the browser-based UI (camera feed, caption/voice panel,
+# chatbot panel). Scoped entirely to web_app.py -- the desktop front-end
+# (main.py) has no dependency on Flask at all.
+flask>=3.0.0
+
+# ---- Chatbot (chatbot_module.py) ----
+# No pip package needed -- chatbot_module.py talks to Ollama over plain
+# HTTP using only the Python standard library. Ollama itself is a
+# separate application (not a pip package): install it from
+# https://ollama.com, run `ollama serve`, and pull a model, e.g.:
+#   ollama pull llama3.2
+# If Ollama isn't running, chatbot_module.py automatically falls back to
+# a safe placeholder response instead of failing.
+
+# ---- Platform notes ----
+# Linux: pyttsx3 requires the system 'espeak' package for offline TTS:
+#   sudo apt-get install espeak
+# macOS / Windows: pyttsx3 uses the built-in NSSpeechSynthesizer / SAPI5
+#   voices respectively -- no extra system package needed.
